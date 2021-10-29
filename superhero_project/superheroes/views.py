@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -33,3 +33,8 @@ def create(request):
         return HttpResponseRedirect(reverse('superheroes:index'))
     else:
         return render(request, 'superheroes/create.html')
+
+def delete(request, hero_id):
+    single_hero = Superhero.objects.get(pk = hero_id)
+    single_hero.delete()
+    return HttpResponseRedirect(reverse('superheroes:index'))
